@@ -7,6 +7,7 @@ Lightweight web server framework made by Bhavesh Shinde 🧠🔥
 ```bash
 npm i @3nobita/server
 ```
+create app.js and add this code
 ```bash
 const server = require('@3nobita/server')();
 
