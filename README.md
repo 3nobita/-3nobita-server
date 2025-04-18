@@ -6,7 +6,7 @@ Lightweight web server framework made by Bhavesh Shinde 🧠🔥
 
 ```bash
 npm i @3nobita/server
-
+```
 ```bash
 const server = require('@3nobita/server')();
 
@@ -17,6 +17,7 @@ server.get('/', (req, res) => {
 server.listen(3000, () => {
   console.log('Server running on port 3000');
 });
+```
 
 =======
 # -3nobita-server
