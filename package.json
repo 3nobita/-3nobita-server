@@ -1,6 +1,6 @@
 {
   "name": "@3nobita/server",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "main": "src/index.js",
   "private": false,
   "scripts": {
@@ -9,7 +9,7 @@
   },
   "author": "Bhavesh Shinde",
   "license": "MIT",
-  "description": "Bhavesh ka custom web server framework",
+  "description": "Custom web server framework",
   "keywords": [
     "webserver",
     "framework",
