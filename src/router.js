@@ -14,6 +14,7 @@ class Router {
             OPTIONS: {},
             ALL: {}
         }
+        this.middleware = [];
     }
     get(path, handler) {
         this.routes.GET[path] = handler
@@ -40,6 +41,9 @@ class Router {
     //     this.routes.ALL[path] = handler
     // }
 
+    use(middleware) {
+        this.middleware.push(middleware)
+    }
 
     handle(req, res) {
 
@@ -53,15 +57,21 @@ class Router {
         if (!this.routes[method]) {
             return res.send("Method is not allowd", 405)
         }
-        
         const handler = this.routes[method][pathname];
-
-        if (handler) {
-            handler(req, res)
+        if (!handler) {
+            return res.send('Not Found', 404)
         }
-        else {
-            res.send('Not Found', 404)
+        let index = 0;
+        const next = () => {
+            if (index < this.middleware.length) {
+                const middleware = this.middleware[index];
+                index++;
+                middleware(req, res, next)
+            } else {
+                handler(req, res);
+            }
         }
+        next()
     }
 }
 

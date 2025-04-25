@@ -7,6 +7,10 @@ class Server {
         this.router = new Router();
     }
 
+    use(middleware) {
+        this.router.use(middleware);
+    }
+
     get(path, handler) {
         this.router.get(path, handler);
     }

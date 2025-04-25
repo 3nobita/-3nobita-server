@@ -19,39 +19,26 @@ npm i @3nobita/server
 ```
 create app.js and add this code
 ```bash
-const server = require('@3nobita/server')();
+const server = require('@3nobita/server')(); // 👈 User is using your framework
 
-server.get('/get', (req, res) => {
-    res.send('GET method is working');
+// 🧩 User-defined middlewares
+server.use((req, res, next) => {
+    console.log(`[LOG] ${req.method} - ${req.url}`);
+    next();
 });
 
-server.post('/post', (req, res) => {
-    res.send('POST method is working');
+server.use((req, res, next) => {
+    req.timestamp = Date.now();
+    next();
 });
 
-server.put('/put', (req, res) => {
-    res.send('PUT method is working');
+// 🚀 User-defined route
+server.get('/', (req, res) => {
+    res.send(`Request received at ${new Date(req.timestamp).toISOString()}`);
 });
-
-server.patch('/patch', (req, res) => {
-    res.send('PATCH method is working');
-});
-
-server.delete('/delete', (req, res) => {
-    res.send('DELETE method is working');
-});
-
-server.head('/head', (req, res) => {
-    res.send(null, 200);  // HEAD should not send a body
-});
-
-server.options('/options', (req, res) => {
-    res.send('OPTIONS method is working');
-});
-
 
 server.listen(3000, () => {
-  console.log('Server running on port 3000');
+    console.log('Server running on port 3000');
 });
 ```
 ## How to Contribute
