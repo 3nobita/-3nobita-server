@@ -1,5 +1,6 @@
 //src/router.js
-const send = require('./methods/send')
+const send = require('./methods/send');
+const url = require('url')
 
 class Router {
     constructor() {
@@ -45,14 +46,21 @@ class Router {
         res.send = function (body, statuscode = 200) {
             send(res, body, statuscode)
         }
+        const parsedUrl = url.parse(req.url)
+        const pathname = parsedUrl.pathname;
+        const method = req.method;
 
-        const handler = this.routes[req.method]?.[req.url];
+        if (!this.routes[method]) {
+            return res.send("Method is not allowd", 405)
+        }
+        
+        const handler = this.routes[method][pathname];
 
         if (handler) {
             handler(req, res)
         }
         else {
-            res.send('Not Found', 404) 
+            res.send('Not Found', 404)
         }
     }
 }

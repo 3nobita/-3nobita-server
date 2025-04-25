@@ -11,6 +11,7 @@ class Server {
         this.router.get(path, handler);
     }
 
+    
     post(path, handler) {
         this.router.post(path, handler);
     }

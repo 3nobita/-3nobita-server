@@ -1,6 +1,6 @@
 {
   "name": "@3nobita/server",
-  "version": "1.0.5",
+  "version": "1.0.7",
   "main": "src/index.js",
   "private": false,
   "scripts": {
@@ -10,12 +10,7 @@
   "author": "Bhavesh Shinde",
   "license": "MIT",
   "description": "Custom web server framework",
-  "keywords": [
-    "webserver",
-    "framework",
-    "nodejs",
-    "bhavesh"
-  ],
+  "keywords": ["node", "server", "http", "router", "minimal", "framework"],
   "dependencies": {
     "nodemon": "^3.1.9"
   }
