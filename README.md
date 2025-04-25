@@ -1,5 +1,14 @@
 # @3nobita/server
 
+
+![npm](https://img.shields.io/npm/v/3nobita-server)
+![npm](https://img.shields.io/npm/dw/3nobita-server)
+![License](https://img.shields.io/npm/l/3nobita-server)
+![bundlephobia](https://img.shields.io/bundlephobia/minzip/3nobita-server)
+![MadeWithLove](https://img.shields.io/badge/Made%20with-%E2%9D%A4%EF%B8%8F%20by%20Bhavesh-teal)
+
+A lightweight Node.js HTTP framework alternative to Express.  
+Super fast, super clean, and easy to use.
 Lightweight web server framework made by Bhavesh Shinde 🧠🔥
 
 ## Install
