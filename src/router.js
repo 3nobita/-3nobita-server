@@ -1,6 +1,7 @@
 //src/router.js
 const send = require('./methods/send');
 const url = require('url')
+const {fileUploadMiddleware} = require('./fileupload/filleupload')
 
 class Router {
     constructor() {
@@ -15,6 +16,7 @@ class Router {
             ALL: {}
         }
         this.middleware = [];
+        this.use(fileUploadMiddleware);
     }
     get(path, handler) {
         this.routes.GET[path] = handler
