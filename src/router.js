@@ -47,7 +47,11 @@ class Router {
     }
 
     use(path, middleware) {
-        this.middleware.push({ path, middleware }); // Store path along with middleware
+        if (typeof middleware !== 'function') {
+            middleware = path;
+            path = '/'
+        }
+        this.middleware.push({ path, middleware });
     }
 
     handle(req, res) {
@@ -69,23 +73,41 @@ class Router {
         }
 
         let index = 0;
-        const next = () => {
+        const next = (err) => {
+            if (err) {
+                return this.handleError(err, req, res)
+            }
             if (index < this.middleware.length) {
-                const { path, middleware } = this.middleware[index];
+                const { middleware, path } = this.middleware[index];
                 index++;
-
-                // Check if the middleware path matches the request's pathname
                 if (pathname === path || path === '/') {
-                    middleware(req, res, next); // Apply the middleware if paths match
+                    try {
+                        middleware(req, res, (innerErr) => next(innerErr))
+                    } catch (error) {
+                        next(error)
+                    }
                 } else {
-                    next(); // Skip this middleware and move to the next one
+                    next()
                 }
             } else {
-                handler(req, res); // Call the handler if all middleware passes
+                try {
+                    handler(req, res)
+                } catch (error) {
+                    this.handleError(error, req, res)
+                }
             }
-        };
-
+        }
         next(); // Start middleware execution
+    }
+    handleError(err, req, res) {
+        const errorMiddleware = this.middleware.find(m => m.middleware.length === 4);
+
+        if (errorMiddleware) {
+            errorMiddleware.middleware(err, req, res, () => { });
+        } else {
+            console.error("Unhandled error:", err);
+            res.send("Internal Server Error", 500);
+        }
     }
 }
 
